@@ -1,3 +1,6 @@
+'''
+피보나치 실행 카운트 세는 문제
+'''
 import sys
 input = sys.stdin.readline
 
