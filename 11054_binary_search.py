@@ -49,12 +49,10 @@ A = list(map(int, input().split()))
 # 1) inc[i] = i에서 끝나는 LIS 길이 (왼 -> 오)
 inc = lis_lengths_strict(A)
 
-# 2) dec[i] = i에서 시작하는 "엄격 감소" 부분수열 길이 (오른쪽 방향)
-#    감소를 증가로 바꾸기 위해 음수로 뒤집는 트릭을 사용:
-#      A[i] > A[j]  <=>  -A[i] < -A[j]
-#    또한 "오른쪽으로" 진행하는 감소를 다루기 위해 배열을 뒤집어서 LIS를 구한 뒤 다시 매핑한다.
+# 2) dec[i] = i에서 시작하는 부분수열 길이 (오른쪽 방향)
+# 배열을 뒤집어서 LIS를 구한 뒤 다시 매핑한다.
 
-rev_neg = [x for x in reversed(A)]      # 뒤집기기
+rev_neg = [x for x in reversed(A)]      # 뒤집기
 rev_inc = lis_lengths_strict(rev_neg)    # 뒤집힌 배열에서 끝나는 LIS 길이들
 
 # rev_inc[k]는 rev_neg[k]에서 끝나는 LIS 길이
