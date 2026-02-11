@@ -37,24 +37,35 @@ for i in range(N):
 white_start_dp = [ [0] * (M+1) for i in range(N+1) ] # 처음이 b 인거 
 black_start_dp = [ [0] * (M+1) for i in range(N+1) ] # 처음이 w 인거
 
+def white_plus(i,j):
+    black_start_dp[i][j] = black_start_dp[i-1][j] + black_start_dp[i][j-1] - black_start_dp[i-1][j-1]
+    white_start_dp[i][j] = white_start_dp[i-1][j] + white_start_dp[i][j-1] - white_start_dp[i-1][j-1] + 1 
+
+def black_plus(i,j):
+    black_start_dp[i][j] = black_start_dp[i-1][j] + black_start_dp[i][j-1] - black_start_dp[i-1][j-1] + 1
+    white_start_dp[i][j] = white_start_dp[i-1][j] + white_start_dp[i][j-1] - white_start_dp[i-1][j-1]
 # 여기서 부터 누적합을 구함
 for i in range(1, N+1):
     for j in range(1, M+1):
         # 화이트 시작은 i 가 홀수일때, j가 홀수이고 짝수일때는 j도 짝수일때 화이트면 됨. 블랙은 반대로 짝수일 때.
         if (i % 2 == 0 and j % 2 == 0) or (i % 2 != 0 and j % 2 != 0): # 둘 다 짝수의 경우거나 둘 다 홀수인 경우
             if map_arr[i-1][j-1] == "B": # 둘다 짝/홀 경우에 시작한 색상과 동일 해야함. 
-                black_start_dp[i][j] = black_start_dp[i-1][j] + black_start_dp[i][j-1] - black_start_dp[i-1][j-1] # B이니까 굳이 안바꿔도 됨.
-                white_start_dp[i][j] = white_start_dp[i-1][j] + white_start_dp[i][j-1] - white_start_dp[i-1][j-1] + 1 # B이니까 변경해야하니 +1 해줌
+                # black_start_dp[i][j] = black_start_dp[i-1][j] + black_start_dp[i][j-1] - black_start_dp[i-1][j-1] # B이니까 굳이 안바꿔도 됨.
+                # white_start_dp[i][j] = white_start_dp[i-1][j] + white_start_dp[i][j-1] - white_start_dp[i-1][j-1] + 1 # B이니까 변경해야하니 +1 해줌
+                white_plus(i,j)
             else: # w 인 경우
-                black_start_dp[i][j] = black_start_dp[i-1][j] + black_start_dp[i][j-1] - black_start_dp[i-1][j-1] + 1# w 이니까 + 1 해줌
-                white_start_dp[i][j] = white_start_dp[i-1][j] + white_start_dp[i][j-1] - white_start_dp[i-1][j-1] # w이니까 그냥
+                # black_start_dp[i][j] = black_start_dp[i-1][j] + black_start_dp[i][j-1] - black_start_dp[i-1][j-1] + 1# w 이니까 + 1 해줌
+                # white_start_dp[i][j] = white_start_dp[i-1][j] + white_start_dp[i][j-1] - white_start_dp[i-1][j-1] # w이니까 그냥
+                black_plus(i,j)
         else: # 이 경우는 둘 중 하나라도 다른 홀/짝 안맞는 경우 => 시작 색상과 다른 색임. 
             if map_arr[i-1][j-1] == "W":  
-                black_start_dp[i][j] = black_start_dp[i-1][j] + black_start_dp[i][j-1] - black_start_dp[i-1][j-1] # 굳이 안바꿔도 됨.
-                white_start_dp[i][j] = white_start_dp[i-1][j] + white_start_dp[i][j-1] - white_start_dp[i-1][j-1] + 1 # 변경해야하니 +1 해줌
+                # black_start_dp[i][j] = black_start_dp[i-1][j] + black_start_dp[i][j-1] - black_start_dp[i-1][j-1] # 굳이 안바꿔도 됨.
+                # white_start_dp[i][j] = white_start_dp[i-1][j] + white_start_dp[i][j-1] - white_start_dp[i-1][j-1] + 1 # 변경해야하니 +1 해줌
+                white_plus(i,j)
             else: # B 인 경우
-                black_start_dp[i][j] = black_start_dp[i-1][j] + black_start_dp[i][j-1] - black_start_dp[i-1][j-1] + 1# 변경 해야하니까 + 1 해줌
-                white_start_dp[i][j] = white_start_dp[i-1][j] + white_start_dp[i][j-1] - white_start_dp[i-1][j-1] # 그냥
+                # black_start_dp[i][j] = black_start_dp[i-1][j] + black_start_dp[i][j-1] - black_start_dp[i-1][j-1] + 1# 변경 해야하니까 + 1 해줌
+                # white_start_dp[i][j] = white_start_dp[i-1][j] + white_start_dp[i][j-1] - white_start_dp[i-1][j-1] # 그냥
+                black_plus(i,j)
 
 
 # 누적합은 다 구했으니까 이제 답을 구할 차례. 
