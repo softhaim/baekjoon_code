@@ -44,10 +44,10 @@ def divide_map(x, y, size):
         else: # blue 경우
             blue += 1
         return 
-    else: # 한 원소로 차있는게 아니기에 분할해서 다시 찾을 것임
+    else: # 한 원소로 차있는게 아니기에 분할해서 다시 s찾을 것임
         divide_map(x,y, mid) # 1번 사분면
-        divide_map(x+mid,y, mid) # 2번 사분면
-        divide_map(x,y+mid, mid) # 3번 사분면
+        divide_map(x,y+mid, mid) # 2번 사분면
+        divide_map(x+mid,y, mid) # 3번 사분면
         divide_map(x+mid,y+mid, mid) # 4번 사분면 
 
 
