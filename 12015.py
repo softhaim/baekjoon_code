@@ -46,6 +46,7 @@ input = sys.stdin.readline
 
 #     return L
 
+# 위 주석을 따라서 연습해봄
 def lis_lengths_strict(arr):
     L = [0]*N
     tails = []
