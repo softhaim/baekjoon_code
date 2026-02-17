@@ -19,7 +19,7 @@ for i in range(N):
     input_num = int(input())
 
     if input_num != 0: 
-        heapq.heappush(abs_heap, (abs(input_num),input_num))
+        heapq.heappush(abs_heap, (abs(input_num),input_num)) # 여기서 핵심은 (abs(x), x)로 절댓값과 같이 넣음. 이러면 절댓값 우선 넣고 같으면 실제 원소 작은거로 함. 
     elif input_num == 0:
         try:
             pop_num = heapq.heappop(abs_heap)
