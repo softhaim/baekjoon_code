@@ -17,7 +17,7 @@ input = sys.stdin.readline
 
 N, K = map(int, input().split())
 
-map_arr = [0]*((10 ** 5)+1)
+map_arr = [0]*(max(N,K)+2) # +2의 이유는 저 K 값에서 -1 해서 찾아올 수 있는 점과, 1~max까지라서 1-index라 +1 해줘야해서 총 +2 해준것. 이렇게 해도 통과 됨.
 
 def bfs(a):
     queue = deque()
