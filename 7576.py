@@ -27,8 +27,8 @@ def bfs(queue:deque, input_map ):
     N = len(input_map)
     M = len(input_map[0]) if N > 0 else 0  # 빈 맵 방어
 
-    for val in queue:
-        input_map[val[0]][val[1]] = 0
+    # for val in queue: # 이거 주석 처리 한 이유가 처음에 들어간 값이 원래 1이라서 1일 이후가 1로 하도록 시작값을 0으로 해주는것인데 이러니까 시작 위치 방문하게 되어서 그런가 오류남. 이거 주석하니까 맞음.
+    #     input_map[val[0]][val[1]] = 0
 
     while queue:
         nx, ny = queue.popleft()
@@ -55,18 +55,18 @@ def main():
         map_arr.append(input_num)
         for val in pos: start_index.append((i,val))
 
-    if all(0 not in row for row in map_arr):
+    if all(0 not in row for row in map_arr): # all 은 전체가 다 살펴보면서 조건 맞아야 해서 0이 없는 경우, 즉 전부 비거나 전부 익었을 경우를 거름
         print(0)
         exit(0)
 
     bfs(start_index, map_arr)
 
-    if any(0 in row for row in map_arr):
+    if any(0 in row for row in map_arr): # any 는 하나라도 저 조건에 맞으면 들어감. 하나라도 0 이 있다면 그것은 전부 익은것이 아니기에 -1 출력 하도록 함.
         print(-1)
         exit(0)
 
     mx = max(v for row in map_arr for v in row)
-    print(mx)
+    print(mx-1) # 시작 위치가 1 이라서 1일 후가 2, 2일 후가 3 이런식으로 +1 된 상황이라 출력은 -1 해주는 것임.
 
 
 if __name__ == "__main__":
