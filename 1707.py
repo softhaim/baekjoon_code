@@ -1,7 +1,18 @@
+'''
+각 노드별로 인접한 노드를 저장하는 2차원 리스트를 만들면 다음과 같이 된다. (0번 인덱스는 버리는 공간)
+graph = [[], [2, 4], [1, 3], [2, 4], [1, 3]]
+
+해당 노드를 방문했는지 아닌지, 방문 했다면 어떤 그룹에 속하는 지 나타내는 체크 리스트를 만든다. (0번 인덱스는 버리는 공간)
+visited = [False, False, False, False, False]
+
+False면 미방문, 서로 다른 그룹은 1, -1 
+1번 노드부터 4번 노드까지 반복하는 for loop를 돌면서, 방문하지 않은 노드라면 BFS를 호출하면 된다. 그 과정에서 이분 안된다면 NO출력.
+'''
+
 from collections import deque
 import sys
 
-input = sys.stdin.readline
+input = sys.stdin.readlines
 
 
 def bfs(start, group, graph, visited):
