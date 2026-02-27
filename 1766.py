@@ -34,7 +34,7 @@ def main():
         A, B = map(int, input().split())
         graph[A].append(B)
         indegree[B] += 1
-
+    # 핵심은 힙으로 구성해서 indegree가 0인거 우선 넣어두고, 그 다음에 진행하면서 result에 추가한 원소로 인해 제약이 해제된다면 그것을 넣을 텐데, 이것이 힙으로 인해 작은것부터(쉬운것부터 출력하게)정렬되어서 나옴. 이렇게 쉬운거부터 하도록 하는것.
     heap = []
     for i in range(1, N + 1):
         if indegree[i] == 0:
