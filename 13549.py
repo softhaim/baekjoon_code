@@ -14,9 +14,9 @@
 
 그래서 이 문제는:
 
-0-1 BFS (deque에서 0비용은 appendleft)
+0-1 BFS (deque에서 0비용은 appendleft) -> 115096kb	128ms
 하거나 
-다익스트라
+다익스트라 -> 117408kb	228ms
 '''
 
 import sys, heapq
