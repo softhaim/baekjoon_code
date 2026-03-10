@@ -1,6 +1,8 @@
 # 9663
 import sys
 
+input = sys.stdin.readline
+
 ## method
 def sol(k): # k : 놓은 말 개수 - 점유 행 번호로도 활용 가능
     # 퀸 : 상하좌우 - x, y 좌표 확인 / 대각선 - (y=x 선상 : used_up) r+c 같으면. (y=-x 선상 : used_down) r-c같으면 놓을 수 없음.
