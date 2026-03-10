@@ -42,23 +42,25 @@ def dfs(idx, sum_val, arr, result):
     dfs(idx+1, sum_val, arr, result) # 지금 원소를 안넣은 경우
     dfs(idx+1, sum_val + arr[idx], arr, result) # 지금 원소를 넣은 경우
 
-N, C = map(int, input().split())
+if __name__ == "__main__":
 
-arr = list(map(int, input().split()))
+    N, C = map(int, input().split())
 
-left = arr[:N//2]
-right = arr[N//2:]
+    arr = list(map(int, input().split()))
 
-left_sum = []
-right_sum = []
+    left = arr[:N//2]
+    right = arr[N//2:]
+
+    left_sum = []
+    right_sum = []
 
 
-dfs(0,0,left,left_sum)
-dfs(0,0,right,right_sum)
-right_sum.sort()
+    dfs(0,0,left,left_sum)
+    dfs(0,0,right,right_sum)
+    right_sum.sort()
 
-ans = 0
+    ans = 0
 
-for s in left_sum:
-    ans += bisect_right(right_sum, C-s) # 해당 인덱스 이전까지의 부분합의 경우의 수는 전부 가능하니 bisect_right 로 찾은 해당 인덱스 값을 넣음 
-print(ans)
+    for s in left_sum:
+        ans += bisect_right(right_sum, C-s) # 해당 인덱스 이전까지의 부분합의 경우의 수는 전부 가능하니 bisect_right 로 찾은 해당 인덱스 값을 넣음 
+    print(ans)

@@ -24,29 +24,30 @@ def dfs(idx, diff):
     # 3. 현재 추를 반대쪽에 올려서 차이가 줄어드는 경우
     dfs(idx + 1, abs(diff - w))
 
-num_chu = int(input())
+if __name__ == "__main__":
+    num_chu = int(input())
 
-chu_weight_arr = list(map(int, input().split()))
+    chu_weight_arr = list(map(int, input().split()))
 
-marble_num = int(input())
+    marble_num = int(input())
 
-marble_weight_arr = list(map(int, input().split()))
+    marble_weight_arr = list(map(int, input().split()))
 
-# 추의 총합보다 큰 구슬은 절대 측정 불가
-max_weight = sum(chu_weight_arr)
+    # 추의 총합보다 큰 구슬은 절대 측정 불가
+    max_weight = sum(chu_weight_arr)
 
-# dp[idx][diff] =
-# idx번째 추까지 고려했을 때, 무게 차이 diff를 만들 수 있는지 여부
-dp = [[False] * (max_weight + 1) for _ in range(num_chu + 1)]
+    # dp[idx][diff] =
+    # idx번째 추까지 고려했을 때, 무게 차이 diff를 만들 수 있는지 여부
+    dp = [[False] * (max_weight + 1) for _ in range(num_chu + 1)]
 
-# 처음에는 아무 추도 안 썼고, 차이는 0
-dfs(0, 0)
+    # 처음에는 아무 추도 안 썼고, 차이는 0
+    dfs(0, 0)
 
-# 각 구슬에 대해 측정 가능한지 확인
-for marble in marble_weight_arr:
-    if marble > max_weight:
-        print("N", end=" ")
-    elif dp[num_chu][marble]:
-        print("Y", end=" ")
-    else:
-        print("N", end=" ")
+    # 각 구슬에 대해 측정 가능한지 확인
+    for marble in marble_weight_arr:
+        if marble > max_weight:
+            print("N", end=" ")
+        elif dp[num_chu][marble]:
+            print("Y", end=" ")
+        else:
+            print("N", end=" ")

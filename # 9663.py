@@ -23,18 +23,19 @@ def sol(k): # k : 놓은 말 개수 - 점유 행 번호로도 활용 가능
             used_up[k+i] = False
             used_down[(n-1)+k-i] = False
 
-## input
-n = int(input())
-maps = [[0]*n for _ in range(n)]
-# 열 점유 여부
-used_column = [False]*n
-# y = x 선상 점유 여부
-used_up = [False]*(2*(n-1)+1)
-# y = -x 선상 점유 여부
-used_down = [False]*(2*(n-1)+1)
+if __name__ == "__main__":
+    ## input
+    n = int(input())
+    maps = [[0]*n for _ in range(n)]
+    # 열 점유 여부
+    used_column = [False]*n
+    # y = x 선상 점유 여부
+    used_up = [False]*(2*(n-1)+1)
+    # y = -x 선상 점유 여부
+    used_down = [False]*(2*(n-1)+1)
 
-cnt = 0
+    cnt = 0
 
-## output
-sol(0)
-print(cnt)
+    ## output
+    sol(0)
+    print(cnt)

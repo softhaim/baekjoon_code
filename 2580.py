@@ -5,15 +5,6 @@ import sys
 
 input = sys.stdin.readline
 
-arr = []
-idx_0 = []
-for i in range(9):
-    input_row = list(map(int, input().split()))
-    for idx, val in enumerate(input_row):
-        if val == 0:
-            idx_0.append((i,idx))
-    arr.append(input_row)
-
 def check(x, y, num):
     # 행 검사
     for i in range(9):
@@ -62,4 +53,14 @@ def dfs(idx):
             arr[x][y] = num
             dfs(idx+1)
             arr[x][y] = 0
-dfs(0)
+
+if __name__ == "__main__":
+    arr = []
+    idx_0 = []
+    for i in range(9):
+        input_row = list(map(int, input().split()))
+        for idx, val in enumerate(input_row):
+            if val == 0:
+                idx_0.append((i,idx))
+        arr.append(input_row)
+    dfs(0)
