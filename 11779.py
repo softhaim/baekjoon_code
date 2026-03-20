@@ -12,7 +12,7 @@ import sys, heapq
 input = sys.stdin.readline
 INF = float('inf')
 
-def dijkstra(start, end):
+def dijkstra(start):
     heap_arr = []
     dist = [INF]*(N+1)
     prev = [0]*(N+1)
