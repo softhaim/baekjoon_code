@@ -24,11 +24,6 @@ def pre_order(in_start, in_end, post_start, post_end):
     offset = idx_root - in_start # 왼쪽 서브트리 노드 수
     print(root, end=" ")
 
-    # left_nodes = in_order[:idx_root]
-    # left_nodes_post = post_order[:idx_root]
-    # right_nodes = in_order[idx_root+1:]
-    # right_nodes_post = post_order[idx_root:len-2] # inorder에서 루트 위치만 빠진거니까 저 중위에서 루트 인덱스부터 오른쪽 자식 시작해서 마지막 루트 위치 뺌.
-
     pre_order(in_start, idx_root-1, post_start, post_start+offset-1) # 왼쪽
     pre_order(idx_root+1, in_end, post_start+offset, post_end-1) # 오른쪽
 
