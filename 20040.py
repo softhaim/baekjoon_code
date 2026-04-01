@@ -11,12 +11,12 @@ import sys
 
 input = sys.stdin.readline
 
-def find(x):
+def find(x): # 대표 노드 뭐인지 찾는 함수
     if parent[x] != x:
         parent[x] = find(parent[x])
     return parent[x]
 
-def union(a, b):
+def union(a, b): # 대표 노드 다를 시 합치는 함수
     root_a = find(a)
     root_b = find(b)
 
@@ -26,15 +26,13 @@ def union(a, b):
         else:
             parent[root_b] = root_a
 
-
-
 if __name__ == "__main__":
     n, m = map(int, input().split())
-    parent = [i for i in range(n)]
-    result = 0
+    parent = [i for i in range(n)] # 0 부터라서 n 만
+
     for i in range(1,m+1):
         a, b = map(int, input().split())
-        if find(a) == find(b):
+        if find(a) == find(b): # 대표노드가 같으면 사이클 생기는 것임. -> 같은 집합 내에 있는 원소를 이은거라서
             print(i)
             break
         union(a,b)
