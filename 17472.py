@@ -55,7 +55,6 @@ def bfs(x,y,mark):
                 visited[next_i][next_j] = True
                 que.append((next_i, next_j))
                 board[next_i][next_j] = mark
-
     return
 
 def find(x):
@@ -93,13 +92,14 @@ if __name__ == "__main__":
     dist = [[INF]*(mark) for _ in range(mark)] # 각 섬들끼리 최소 거리 저장 리스트
     get_edge()
 
+    # 쿠르스칼 사용 위하여 간선의 비용, 섬들의 번호로 해서 저장 후 작은 순으로 정렬.
     edge = []
-    for i, row in enumerate(dist):
-        for j, val in enumerate(row):
+    for i, row in enumerate(dist[1:],1):
+        for j, val in enumerate(row[1:], 1):
             if val != INF:
                 edge.append((val, i, j))
     edge.sort()
-    
+
     # 구한 간선으로 MST
     result = 0
     cnt = 0 # 간선 개수가 노드 개수 -1 인지 판단하여 다 이어졌는지 체크하기 위한 변수
@@ -112,5 +112,5 @@ if __name__ == "__main__":
 
     if cnt == mark-2: # mark 는 1-index 때문에 +1 더 되어있는 상황. 간선 개수 = 노드 개수 -1 이라 mark-2임.
         print(result)
-    else:
+    else: # 전부 연결 못함. -1 출력
         print(-1)
