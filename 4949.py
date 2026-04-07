@@ -36,7 +36,7 @@ if __name__ == "__main__":
                     print("no")
                     break
                 str_last = que.pop()
-                if "(" != str_last:
+                if "(" != str_last: 
                     print("no")
                     break
         else:
