@@ -11,7 +11,7 @@
 따라서 dfs를 구현해서 트리를 기반으로 부모 노드 아닐때 dfs로 들어가고, 리프이면 1만 저장 후 종료 혹은 반환하게 하고 이를 부모 노드 스택쪽에 돌아오면 이 값들을 합해서 몇개 자식 있는지 합해놓으면 된다.
 '''
 import sys
-sys.setrecursionlimit(10**5)
+sys.setrecursionlimit(10**5) # recursion error 나서 설정
 input = sys.stdin.readline
 
 def dfs(node, parent):
