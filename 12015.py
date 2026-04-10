@@ -48,23 +48,19 @@ input = sys.stdin.readline
 
 # 위 주석을 따라서 연습해봄
 def lis_lengths_strict(arr):
-    L = [0]*N
     tails = []
-    for i, val in enumerate(arr):
+    for val in arr:
         pos = bisect_left(tails, val)
 
         if pos == len(tails):
             tails.append(val)
         else:
             tails[pos] = val
-        L[i] = pos + 1
     
-    return L
+    return len(tails) # 어차피 최소 꼬리값 저장하는 배열의 길이가 lis 의 길이랑 같음
 
 
 N = int(input())
 A = list(map(int, input().split()))
 
-lis_arr = lis_lengths_strict(A)
-
-print(max(lis_arr))
+print(lis_lengths_strict(A))
