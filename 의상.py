@@ -26,16 +26,22 @@ clothes	return
 [["crow_mask", "face"], ["blue_sunglasses", "face"], ["smoky_makeup", "face"]]	3
 
 '''
+from functools import reduce
 
 def solution(clothes):
     dict_clothes = {}
     for item, category in clothes:
         dict_clothes[category] = dict_clothes.get(category, 0) + 1 # 키 없으면 0 반환하고 아니면 해당값 반환. 그리고 + 1 해줌 -> 카테고리별 카운트 함.
         
-    answer = 1
-    for count in dict_clothes.values(): # 카운트 해놓은거 바탕으로 경우의 수 셈.
-        answer *= (count+1) # 카테고리 옷 개수 만큼의 해당 옷 선택하여 생기는 경우의 수 + 카테고리에서 아무것도 안입은 경우의 수까지가 경우의 수. 즉 headgear에 2개 있으면 각각 입는 경우, 아예 headgear 안입는 경우로 3개의 경우의 수로 계산한다는 거.
-    answer -= 1 # 전부 다 안입는 경우의 수 고른 경우는 제외. 조건 상 하나라도 입어야 하기에.
+    # answer = 1
+    # for count in dict_clothes.values(): # 카운트 해놓은거 바탕으로 경우의 수 셈.
+    #     answer *= (count+1) # 카테고리 옷 개수 만큼의 해당 옷 선택하여 생기는 경우의 수 + 카테고리에서 아무것도 안입은 경우의 수까지가 경우의 수. 즉 headgear에 2개 있으면 각각 입는 경우, 아예 headgear 안입는 경우로 3개의 경우의 수로 계산한다는 거.
+    # answer -= 1 # 전부 다 안입는 경우의 수 고른 경우는 제외. 조건 상 하나라도 입어야 하기에.
+
+    # 위 주석 처리 한것을 reduce라는 것을 이용해 한줄로 동일 계산 가능. 여러 개의 데이터를 담고 있는 리스트나 튜플 같은 반복 가능한 객체(iterable)의 모든 요소를 차례대로 특정 함수에 적용하여 하나의 최종 결과값으로 줄여나갈 때 사용
+    # 이전까지 계산된 경우의 수(x)에 현재 종류의 선택지(y+1)를 곱해 누적. 초기값은 1로 설정해서 x=1 로 시작. 그리고 그 값에서 -1 해서 모두 안입은경우 제외.
+    # reduce(function, iterable, initializer=None)
+    answer = reduce(lambda x, y: x*(y+1), dict_clothes.values(), 1) - 1
 
     return answer
 
