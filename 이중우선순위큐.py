@@ -34,32 +34,61 @@ operations	return
 -642, 45, 97을 삽입 후 최댓값(97), 최솟값(-642)을 삭제합니다. -45와 45가 남아있습니다.
 333을 삽입합니다.
 이중 우선순위 큐에 -45, 45, 333이 남아있으므로, [333, -45]를 반환합니다.
+
+처음에 dic으로 풀면서 삭제해야하는것을 +1 하면서 했는데 이 경우, 같은 원소만 들어왔을때 1개만 지워야 하는데 
 '''
+import heapq
 
-import heapq, sys
-input = sys.stdin.readline
-
-def max_sync(max_heap, delete):
-    while max_heap and delete.get(-max_heap[0], 0) > 0: # # 안비었고, 해당 최댓값이 삭제한 값이면 -> 삭제해버림 (동기화 작업)
-        delete[-heapq.heappop(max_heap)] -= 1
+# def solution(operations):
+#     min_heap = []
+#     max_heap = []
+#     visited = [False] * len(operations) # 들어온 명령어 순서대로 매겨놓고 해당 명령어내용 지웠는지 판단하는데 사용하는 dp 라 생각
     
-def min_sync(min_heap, delete):
-    while min_heap and delete.get(min_heap[0], 0) > 0: # 안비었고, 해당 최솟값이 삭제한 값이면 -> 삭제해버림 (동기화 작업)
-        delete[heapq.heappop(min_heap)] -= 1
+#     for idx, cxt in enumerate(operations):
+#         op, val = cxt.split()
+#         val = int(val)
 
-def synchronization(min_heap, max_heap, delete, del_val):
-    if del_val == 1:
-        max_sync(max_heap, delete)
-        min_sync(min_heap, delete)
-    else:
-        min_sync(min_heap, delete)
-        max_sync(max_heap, delete)
+#         if op == "I":
+#             heapq.heappush(min_heap, (val, idx))
+#             heapq.heappush(max_heap, (-val, idx))
+#         elif val == 1:
+#             while max_heap and visited[max_heap[0][1]]: # 힙이 안비었고, 삭제했던거면
+#                 heapq.heappop(max_heap) # 해당 값은 삭제
+#             if max_heap: # 삭제 했던거 아니면 -> 최댓값
+#                 _, i = heapq.heappop(max_heap)
+#                 visited[i] = True
+#         elif val == -1: # 최솟값 삭제
+#             while min_heap and visited[min_heap[0][1]]: 
+#                 heapq.heappop(min_heap)
+#             if min_heap:
+#                 _, i = heapq.heappop(min_heap)
+#                 visited[i] = True
+            
+#     # 최솟값 및 최대값이 현재 삭제 해야 하는 값인데 안한 경우는 삭제
+#     while min_heap and visited[min_heap[0][1]]:
+#         heapq.heappop(min_heap)
+#     while max_heap and visited[max_heap[0][1]]:
+#         heapq.heappop(max_heap)
+        
+#     if not min_heap or not max_heap: 
+#         return [0, 0]
+    
+#     return [-max_heap[0][0], min_heap[0][0]]
+
+# 위 처럼 해야 안전하긴 하지만, 삭제 연산이 많을 수록 낭비됨. 딕셔너리로 하려면 아래처럼 들어간것을 세고, 그렇게 0되면 다 없애야 하는거니까 싹다 삭제하는식으로 동기화 하면 정답.
+def min_sync(min_heap, count):
+    while min_heap and count.get(min_heap[0], 0) == 0: # 0 인 경우에는 아예 이 값이 없어야 하니까 계속 버려야함. 아니면 하나라도 이 값이 있어야 하는거라서 안버려도 됨.
+        heapq.heappop(min_heap)
+
+def max_sync(max_heap, count):
+    while max_heap and count.get(-max_heap[0], 0) == 0:
+        heapq.heappop(max_heap)
 
 def solution(operations):
     min_heap = []
     max_heap = []
-    delete = {}
-    
+    count = {}
+
     for cxt in operations:
         op, val = cxt.split()
         val = int(val)
@@ -67,24 +96,26 @@ def solution(operations):
         if op == "I":
             heapq.heappush(min_heap, val)
             heapq.heappush(max_heap, -val)
-        elif val == 1:
-            if max_heap: # 삭제 했던거 아니면 -> 최댓값
-                max_val = -heapq.heappop(max_heap)
-                delete[max_val] = delete.get(max_val, 0) + 1
-            synchronization(min_heap, max_heap, delete, val)
-        elif val == -1: # 최솟값 삭제
-            if min_heap: # 안비었다면 최소값 삭제
-                min_val = heapq.heappop(min_heap)
-                delete[min_val] = delete.get(min_val, 0) + 1
-            synchronization(min_heap, max_heap, delete, val)
+            count[val] = count.get(val, 0) + 1
 
-    # print(f"min_heap:{min_heap}")
-    # print(f"max_heap:{max_heap}")
-    # print(f"delete:{delete}")
-        
-    if not min_heap or not max_heap: 
+        elif val == 1:
+            max_sync(max_heap, count)
+            if max_heap:
+                x = -heapq.heappop(max_heap)
+                count[x] -= 1
+
+        elif val == -1:
+            min_sync(min_heap, count)
+            if min_heap:
+                x = heapq.heappop(min_heap)
+                count[x] -= 1
+
+    min_sync(min_heap, count)
+    max_sync(max_heap, count)
+
+    if not min_heap or not max_heap:
         return [0, 0]
-    
+
     return [-max_heap[0], min_heap[0]]
 
 if __name__ == "__main__":
