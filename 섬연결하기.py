@@ -51,4 +51,6 @@ def solution(n, costs):
     root = [i for i in range(n)]
         
     return kruskal(root, costs)
-    
+
+if __name__ == "__main__":
+    print(solution(4, [[0,1,1],[0,2,2],[1,2,5],[1,3,1],[2,3,8]]))
