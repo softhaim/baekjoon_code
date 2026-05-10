@@ -1,0 +1,51 @@
+'''
+문제 설명
+도둑이 어느 마을을 털 계획을 하고 있습니다. 이 마을의 모든 집들은 아래 그림과 같이 동그랗게 배치되어 있습니다.
+
+image.png
+
+각 집들은 서로 인접한 집들과 방범장치가 연결되어 있기 때문에 인접한 두 집을 털면 경보가 울립니다.
+
+각 집에 있는 돈이 담긴 배열 money가 주어질 때, 도둑이 훔칠 수 있는 돈의 최댓값을 return 하도록 solution 함수를 작성하세요.
+
+제한사항
+이 마을에 있는 집은 3개 이상 1,000,000개 이하입니다.
+money 배열의 각 원소는 0 이상 1,000 이하인 정수입니다.
+입출력 예
+money	return
+[1, 2, 3, 1]	4
+
+
+dp[i] = max(dp[i-1], dp[i-2] + money[i])
+
+i번째 집을 안 턴다 → dp[i-1]
+i번째 집을 턴다 → dp[i-2] + money[i]
+
+대신 원형이기에 선형으로 오른쪽 가면서 저렇게 푸려면
+1. 첫 번째 집을 터는 경우의 범위 → 마지막 집은 못 턴다 = 0~n-2
+2. 첫 번째 집을 안 터는 경우의 범위 → 마지막 집은 털 수도 있다 = 1~n-1
+'''
+
+def rob(arr):
+    n = len(arr)
+    if n == 1:
+        return arr[0]
+    
+    dp = [0]*(n)
+    dp[0] = arr[0]
+    dp[1] = max(arr[0], arr[1])
+    
+    for i in range(2, n):
+        dp[i] = max(dp[i-1], arr[i]+dp[i-2])
+    
+    return dp[-1]
+    
+def solution(money):
+    n = len(money)
+    if n == 1:
+        return money[0]
+    
+    return max(rob(money[:n-1]), rob(money[1:n]))
+
+if __name__ == "__main__":
+    print(f"ANS: {solution([1, 2, 3, 1])}, Gold: 4")
