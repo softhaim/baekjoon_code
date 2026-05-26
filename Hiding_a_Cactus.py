@@ -37,6 +37,7 @@ m	n	h	w	drops	result
 
 슬라이딩 윈도우로 푸는 문제. 정말 어려웠다. gpt 로 보고 푸는데도 뭔소리인지 잘 몰라서 한참 해맸다. 
 '''
+
 from collections import deque 
 '''
 dq는 현재 윈도우 안에서 최솟값 후보만 저장한다.
