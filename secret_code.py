@@ -42,3 +42,6 @@ def solution(s, skip, index):
         answer += alphabet_pool[new_idx]
         
     return answer
+
+if __name__ == "__main__":
+    print(f"ANS:{solution("aukks","wbqd",5)}\nGOLD ANS: happy")
