@@ -19,6 +19,23 @@ want	number	discount	result
 ["apple"]	[10]	["banana", "banana", "banana", "banana", "banana", "banana", "banana", "banana", "banana", "banana"]	0
 '''
 
+'''
+# defaultdict를 사용한 풀이
+from collections import Counter, defaultdict
+
+def solution(want, number, discount):
+    answer = 0
+    want_dic = defaultdict()
+    for i in range(len(want)):
+        want_dic[want[i]] = number[i] 
+    
+    for i in range(len(discount)-10 + 1):
+        cnt_disc = Counter(discount[i:i+10])
+        if cnt_disc == want_dic:
+            answer += 1
+        
+    return answer
+'''
 from collections import Counter
 
 def solution(want, number, discount):
@@ -31,3 +48,18 @@ def solution(want, number, discount):
             answer += 1
         
     return answer
+
+if __name__ == "__main__":
+    # Test case 1
+    want = ["banana", "apple", "rice", "pork", "pot"]
+    number = [3, 2, 2, 2, 1]
+    discount = ["chicken", "apple", "apple", "banana", "rice", "apple", "pork", "banana", "pork", "rice", "pot", "banana", "apple", "banana"]
+    ans1 = solution(want, number, discount)
+    print(f"want:{want}, number:{number}, discount:{discount}, Answer:{ans1} is_Correct:{ans1 == 3}") # Expected output: 3
+
+    # Test case 2
+    want = ["apple"]
+    number = [10]
+    discount = ["banana", "banana", "banana", "banana", "banana", "banana", "banana", "banana", "banana", "banana"]
+    ans2 = solution(want, number, discount)
+    print(f"want:{want}, number:{number}, discount:{discount}, Answer:{ans2} is_Correct:{ans2 == 0}")  # Expected output: 0
