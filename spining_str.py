@@ -21,7 +21,8 @@ e
 
 import sys
 input = sys.stdin.readline
-str = input()
 
-for val in str:
-    print(val)
+if __name__ == "__main__":
+    str = input().strip()
+    for char in str:
+        print(char)
