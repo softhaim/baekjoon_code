@@ -52,3 +52,15 @@ if __name__ == "__main__":
     s = "[](){}"
     ans = solution(s)
     print(f"solution(s): {ans} is_correct: {ans == 3}")  # Output: 3
+
+    s = "}]()[{"
+    ans = solution(s)
+    print(f"solution(s): {ans} is_correct: {ans == 2}")
+
+    s = "[)(]"
+    ans = solution(s)
+    print(f"solution(s): {ans} is_correct: {ans == 0}")
+
+    s = "}}}"
+    ans = solution(s)
+    print(f"solution(s): {ans} is_correct: {ans == 0}")
