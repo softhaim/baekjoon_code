@@ -86,6 +86,29 @@ def solution(record):
         ]
 
 if __name__ == "__main__":
-    record = ["Enter uid1234 Muzi", "Enter uid4567 Prodo","Leave uid1234","Enter uid1234 Prodo","Change uid4567 Ryan"]
-    ans = solution(record)
-    print(f"record: {record} => {ans}, is_correct: {ans == ['Prodo님이 들어왔습니다.', 'Ryan님이 들어왔습니다.', 'Prodo님이 나갔습니다.', 'Prodo님이 들어왔습니다.']}") # ['Prodo님이 들어왔습니다.', 'Ryan님이 들어왔습니다.', 'Prodo님이 나갔습니다.', 'Prodo님이 들어왔습니다.']
+    test_cases = [
+        (
+            ["Enter uid1234 Muzi", "Enter uid4567 Prodo", "Leave uid1234", "Enter uid1234 Prodo", "Change uid4567 Ryan"],
+            ["Prodo님이 들어왔습니다.", "Ryan님이 들어왔습니다.", "Prodo님이 나갔습니다.", "Prodo님이 들어왔습니다."],
+        ),
+        (
+            ["Enter uid1 Alice", "Leave uid1"],
+            ["Alice님이 들어왔습니다.", "Alice님이 나갔습니다."],
+        ),
+        (
+            ["Enter uid1 Muzi", "Change uid1 Ryan", "Leave uid1"],
+            ["Ryan님이 들어왔습니다.", "Ryan님이 나갔습니다."],
+        ),
+        (
+            ["Enter uid1 Muzi", "Leave uid1", "Enter uid1 Prodo"],
+            ["Prodo님이 들어왔습니다.", "Prodo님이 나갔습니다.", "Prodo님이 들어왔습니다."],
+        ),
+        (
+            ["Enter uid1 A", "Enter uid2 A", "Change uid2 B", "Leave uid1", "Leave uid2"],
+            ["A님이 들어왔습니다.", "B님이 들어왔습니다.", "A님이 나갔습니다.", "B님이 나갔습니다."],
+        ),
+    ]
+
+    for record, expected in test_cases:
+        ans = solution(record)
+        print(f"record: {record} => {ans}, is_correct: {ans == expected}")
